@@ -1,0 +1,7 @@
+WEBCAM QR SCANNER:
+
+- Maak verbindin met een database, en zorg dat die werkt. *
+- Zorg ervoor dat de gemaakte foto in de database word opgeslagen met een id. *
+- Laat daarna een knop zien met QR-Code laten zien om te downloaden. *
+- Op een druk van de knop word je doorverbonden naar een ander tablad.
+- Op dat tabblad is de gemaakte foto te downloaden door middel van een knop.
