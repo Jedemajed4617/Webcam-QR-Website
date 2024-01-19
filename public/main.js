@@ -69,43 +69,8 @@ document.addEventListener("DOMContentLoaded", function () {
         return nameRandom;
     }
 
-    function showDownloadButton(){
+    function showDownloadButton() {
         document.querySelector(".download-container").style.display = "flex";
-    }
-
-    $(document).ready(function () {
-        // Click event for "Download Photo" link
-        $("#download-link").on("click", function (e) {
-            e.preventDefault(); // Prevent default behavior of the link
-
-            // Dummy URL for demonstration, replace it with the actual URL
-            const downloadUrl = "https://example.com/photo.jpg";
-
-            // Generate and display the QR code
-            generateAndDisplayQRCode(downloadUrl);
-        });
-    });
-
-    // Function to generate and display the QR code
-    function generateAndDisplayQRCode(url) {
-        const qrCodeElement = document.getElementById('qrcode');
-        const qrcodeContainer = document.getElementById('qrcode-container');
-
-        // Generate QR code with the provided URL
-        QRCode.toCanvas(qrCodeElement, url, function (error) {
-            if (error) {
-                console.error('Error generating QR code:', error);
-            } else {
-                console.log('QR code generated successfully');
-
-                // Show the QR code container in the middle of the screen
-                qrcodeContainer.style.display = 'flex';
-                // Optionally, you can center the container using CSS or JavaScript
-                // qrcodeContainer.style.top = '50%';
-                // qrcodeContainer.style.left = '50%';
-                // qrcodeContainer.style.transform = 'translate(-50%, -50%)';
-            }
-        });
     }
 
     function sendImageData(imageInfo) {
@@ -124,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
             contentType: false,
             success: function (data) {
                 console.log(data);
-                if(data == "succes"){
+                if (data == "succes") {
                     setTimeout(showDownloadButton, 500);
                 }
             },
@@ -135,3 +100,19 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+function showQRCode() {
+    document.querySelector(".qrcode-container").style.display = "flex";
+}
+
+const generateBtn = document.querySelector(".downbutton");
+
+generateBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    setTimeout(showQRCode, 100);
+    document.getElementById("js--body").style.overflow = "hidden";
+});
+
+
+
+// const generateBtn = document.querySelector(".downbutton");
+// const qrImg = document.querySelector(".qrimg");

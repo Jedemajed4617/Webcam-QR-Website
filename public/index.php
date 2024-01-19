@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR website</title>
     <link rel="stylesheet" href="/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.0.0/dist/qrcode.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="main.js" defer></script>
     <script src="https://kit.fontawesome.com/5a883bd754.js" crossorigin="anonymous"></script>
@@ -24,6 +23,10 @@
                 <small>Try reloading the page.</small>
             </div>
         </div>
+    </div>
+
+    <div class="qrcode-container">
+        <img class="qrcode" src="" alt="">
     </div>
 
     <header class="header">
@@ -53,13 +56,9 @@
         <div class="captured-container">
             <canvas id="captured-photo"></canvas>
             <div class="download-container">
-                <a href="" id="download-link" target="_blank">Download Photo</a>
+                <a class="downbutton" href="" id="download-link">Download Photo</a>
             </div>
         </div>
-    </div>
-
-    <div id="qrcode-container">
-        <canvas id="qrcode"></canvas>
     </div>
 
     <footer class="footer">
