@@ -105,13 +105,8 @@ document.addEventListener("DOMContentLoaded", function () {
             type: "GET",
             data: { imageName: imageName },
             success: function (data) {
-                console.log(data);
-                if (data && data.qrCodePath) {
-                    // Display the QR code using an image element
-                    const qrCodeImg = document.getElementById("qrcode-img");
-                    qrCodeImg.src = data.qrCodePath;
-                    showQRCode();
-                }
+                const qrCodeImg = document.querySelector(".qrcode");
+                qrCodeImg.src = data;
             },
             error: function (xhr, status, error) {
                 console.error("Error generating QR code:", status, error);
@@ -124,7 +119,6 @@ document.addEventListener("DOMContentLoaded", function () {
     generateBtn.addEventListener("click", (event) => {
         event.preventDefault();
         showQRCode();
-        document.getElementById("js--body").style.overflow = "hidden";
     });
 
     document.querySelector(".qrcode-container").addEventListener("click", function (event) {

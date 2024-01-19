@@ -26,7 +26,7 @@
     </div>
 
     <div class="qrcode-container">
-        <img class="qrcode" id="qrcode-img" alt="QR Code Not loading..." src="">
+        <img class="qrcode" alt="QR Code Not loading..." src="">
     </div>
 
     <header class="header">

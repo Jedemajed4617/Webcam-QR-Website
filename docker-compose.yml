@@ -2,7 +2,6 @@ version: '3.5'
 
 # Services
 services:
-
   # PHP FPM Service
   php:
     container_name: php
@@ -23,7 +22,7 @@ services:
     links:
       - 'php'
     volumes:
-      - './:/var/www/html'
+      - './public:/var/www/html'  # Update this line
       - './nginx:/etc/nginx/conf.d'
     depends_on:
       - php
