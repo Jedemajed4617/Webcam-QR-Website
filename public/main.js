@@ -28,6 +28,9 @@ function displayErrorScreen() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    // Declare imageInfo in the outer scope
+    let imageInfo;
+
     const video = document.getElementById("camera-feed");
     const captureBtn = document.getElementById("capture-btn");
     const canvas = document.getElementById("captured-photo");
@@ -55,8 +58,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Capture the current date and time
         const currentDate = new Date().toISOString().slice(0, 19).replace("T", " ");
 
-        // Combine image name, date, and data into an object
-        const imageInfo = { name: imageName, date: currentDate, data: imageDataUrl };
+        // Update the outer-scope imageInfo
+        imageInfo = { name: imageName, date: currentDate, data: imageDataUrl };
 
         // Send the image data to the server
         sendImageData(imageInfo);
@@ -98,18 +101,27 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-});
 
-function showQRCode() {
-    document.querySelector(".qrcode-container").style.display = "flex";
-}
+    function showQRCode() {
+        document.querySelector(".qrcode-container").style.display = "flex";
+    }
 
-const generateBtn = document.querySelector(".downbutton");
+    function generateQRCode(imageInfo) {
+        const qrCodeApi = "https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=" + encodeURIComponent(imageInfo.data);
 
-generateBtn.addEventListener("click", (event) => {
-    event.preventDefault();
-    setTimeout(showQRCode, 100);
-    document.getElementById("js--body").style.overflow = "hidden";
+        // Display the QR code using an image element
+        const qrCodeImg = document.getElementById("qrcode-img");
+        qrCodeImg.src = qrCodeApi;
+        showQRCode();
+    }
+
+    const generateBtn = document.querySelector(".downbutton");
+
+    generateBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        setTimeout(() => generateQRCode(imageInfo), 100);
+        document.getElementById("js--body").style.overflow = "hidden";
+    });
 });
 
 
