@@ -4,19 +4,19 @@ if (isset($_POST["imageName"]) && isset($_POST["imageDate"]) && isset($_POST["im
     $imageDate = $_POST["imageDate"];
     $imageData = $_POST["imageData"];
 
-    // Decode base64 data and create an image file
+    // Decode base64 data
     $imageData = str_replace('data:image/png;base64,', '', $imageData);
     $imageData = str_replace(' ', '+', $imageData);
     $imageData = base64_decode($imageData);
 
-    // Generate a random filename :)
-    $filename = 'uploads/' . uniqid() . '.png';
+    // Use provided filename
+    $filename = 'uploads/' . $imageName . '.png';
 
     // Save the image file
     file_put_contents($filename, $imageData);
 
-    // db connection
-    $servername = "mariadb"; 
+    // Database connection
+    $servername = "mariadb";
     $database = "QRWeb";
     $username = "root";
     $password = "4dy5qwtrsag#!sad";
@@ -32,7 +32,7 @@ if (isset($_POST["imageName"]) && isset($_POST["imageDate"]) && isset($_POST["im
         $stmt->bindParam(':date', $imageDate);
         $stmt->execute();
 
-        echo "succes";
+        echo "success";
     } catch (PDOException $e) {
         $response = array("success" => false, "message" => "Error: " . $e->getMessage());
         echo "failed";

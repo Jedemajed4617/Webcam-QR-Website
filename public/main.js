@@ -28,7 +28,6 @@ function displayErrorScreen() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Declare imageInfo in the outer scope
     let imageInfo;
 
     const video = document.getElementById("camera-feed");
@@ -49,19 +48,11 @@ document.addEventListener("DOMContentLoaded", function () {
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         canvas.style.display = "flex";
 
-        // Convert the canvas content to a data URL (base64 encoded image)
         const imageDataUrl = canvas.toDataURL("image/png");
-
-        // Generate a random image name starting with "QRIMG-" and exactly 36 characters long
         const imageName = generateRandomName();
-
-        // Capture the current date and time
         const currentDate = new Date().toISOString().slice(0, 19).replace("T", " ");
-
-        // Update the outer-scope imageInfo
         imageInfo = { name: imageName, date: currentDate, data: imageDataUrl };
 
-        // Send the image data to the server
         sendImageData(imageInfo);
     });
 
@@ -77,13 +68,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function sendImageData(imageInfo) {
-        // Create a FormData object to send the image data
         const formData = new FormData();
         formData.append("imageName", imageInfo.name);
         formData.append("imageDate", imageInfo.date);
         formData.append("imageData", imageInfo.data);
 
-        // Send the data to the PHP script using jQuery's AJAX
         $.ajax({
             url: "upload.php",
             type: "POST",
@@ -92,8 +81,10 @@ document.addEventListener("DOMContentLoaded", function () {
             contentType: false,
             success: function (data) {
                 console.log(data);
-                if (data == "succes") {
-                    setTimeout(showDownloadButton, 500);
+                if (data == "success") {
+                    // After successful upload, generate QR code
+                    setTimeout(showDownloadButton, 100);
+                    setTimeout(() => generateQRCode(imageInfo.name), 500);
                 }
             },
             error: function (xhr, status, error) {
@@ -104,27 +95,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function showQRCode() {
         document.querySelector(".qrcode-container").style.display = "flex";
+        document.getElementById("js--body").style.overflow = "hidden";
     }
 
-    function generateQRCode(imageInfo) {
-        const qrCodeApi = "https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=" + encodeURIComponent(imageInfo.data);
-
-        // Display the QR code using an image element
-        const qrCodeImg = document.getElementById("qrcode-img");
-        qrCodeImg.src = qrCodeApi;
-        showQRCode();
+    function generateQRCode(imageName) {
+        // Request the server to generate QR code for the given image name
+        $.ajax({
+            url: "genqr.php",
+            type: "GET",
+            data: { imageName: imageName },
+            success: function (data) {
+                console.log(data);
+                if (data && data.qrCodePath) {
+                    // Display the QR code using an image element
+                    const qrCodeImg = document.getElementById("qrcode-img");
+                    qrCodeImg.src = data.qrCodePath;
+                    showQRCode();
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Error generating QR code:", status, error);
+            }
+        });
     }
 
     const generateBtn = document.querySelector(".downbutton");
 
     generateBtn.addEventListener("click", (event) => {
         event.preventDefault();
-        setTimeout(() => generateQRCode(imageInfo), 100);
+        showQRCode();
         document.getElementById("js--body").style.overflow = "hidden";
     });
+
+    document.querySelector(".qrcode-container").addEventListener("click", function (event) {
+        if (event.target.classList.contains("qrcode-container")) {
+            document.querySelector(".qrcode-container").style.display = "none";
+            document.getElementById("js--body").style.overflow = "auto";
+        }
+    });
 });
-
-
-
-// const generateBtn = document.querySelector(".downbutton");
-// const qrImg = document.querySelector(".qrimg");
