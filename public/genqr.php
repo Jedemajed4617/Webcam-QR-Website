@@ -1,5 +1,6 @@
 <?php
 if (isset($_GET["imageName"])) {
+    $imageSrc = "https://tygojedema.xyz/qrcode/download.php?imageurl=" . $_GET["imageName"];
     // Sanitize the input to prevent security issues
     $imageName = filter_var($_GET["imageName"]);
 
@@ -16,7 +17,7 @@ if (isset($_GET["imageName"])) {
 
     // Generate QR code
     $qrCodePath = $outputDir . $imageName . ".png";
-    QRcode::png($imageName, $qrCodePath);
+    QRcode::png($imageSrc, $qrCodePath);
     echo $qrCodePath;
     return $qrCodePath;
 

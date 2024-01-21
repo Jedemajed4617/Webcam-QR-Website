@@ -262,20 +262,84 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
+    gap: 2rem;
     display: none;
 }
 
 .qrcode{
-    width: 50rem;
-    height: 50rem;
+    max-width: 50rem;
+    max-height: 50rem;
+    width: 25rem;
+    height: 25rem;
     padding: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: white; 
     border-radius: 1rem; 
+}
+
+.qrinfo{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.qrinfo>h1{
+    text-align: center;
+    color: white;
+    font-size: 3rem;
+}
+
+/* Downloadpage */
+
+.photoContainer{
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+    background-color: black;
+} 
+
+.downloadphoto{
+    width: 50%;
+    height: auto;
+    border-radius: 2rem;
+    border: 2px solid white;
+} 
+
+.buttoncontainer{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.dwnButton {
+    width: 20rem;
+    height: 5rem;
+    background-color: rgb(68, 38, 13);
+    outline: none;
+    border: none;
+    border-radius: 1rem;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.dwnButton:hover {
+    background-color: #815226;
+    cursor: pointer;
 }
 
 

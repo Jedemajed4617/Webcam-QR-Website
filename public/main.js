@@ -128,3 +128,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+function downloadImg(imageSrc) {
+    // Create an anchor element to trigger the download
+    const downloadLink = document.createElement("a");
+    downloadLink.href = imageSrc;
+
+    // Extract the filename from the imageSrc (assuming it's the last part after '/')
+    const fileName = imageSrc.split('/').pop();
+    downloadLink.download = fileName;
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+}

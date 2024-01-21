@@ -26,6 +26,9 @@
     </div>
 
     <div class="qrcode-container">
+        <div class="qrinfo">
+            <h1>Scan the QR code to download!</h1>
+        </div>
         <img class="qrcode" alt="QR Code Not loading..." src="">
     </div>
 
