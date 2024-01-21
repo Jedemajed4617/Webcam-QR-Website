@@ -26,10 +26,10 @@ if (isset($_POST["imageName"]) && isset($_POST["imageDate"]) && isset($_POST["im
         $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $stmt = $conn->prepare("INSERT INTO saved_photo (file_path, name, date) VALUES (:file_path, :name, :date)");
-        $stmt->bindParam(':file_path', $filename);
+        $stmt = $conn->prepare("INSERT INTO saved_photo (name, date, file_path) VALUES (:name, :date, :file_path)");
         $stmt->bindParam(':name', $imageName);
         $stmt->bindParam(':date', $imageDate);
+        $stmt->bindParam(':file_path', $filename);
         $stmt->execute();
 
         echo "success";

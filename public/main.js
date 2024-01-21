@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             },
             error: function (xhr, status, error) {
-                console.error("Error uploading image:", status, error);
+                console.error("Error uploading image:", xhr, status, error);
             }
         });
     }
